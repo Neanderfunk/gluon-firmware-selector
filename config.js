@@ -21,9 +21,9 @@ var config = {
   // set enabled categories of devices (see devices.js)
   enabled_device_categories: ["recommended"],
   // community prefix of the firmware images
-  community_prefix: 'gluon-ffnef-',
+  community_prefix: 'gluon-',
   // firmware version regex
-  version_regex: '-([a-z]+.[0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
+  version_regex: '([a-z]+.[0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
   // relative image paths and branch
   directories: {
     'http://beta.ffnef.de/images/experimental/ffnef-multidomain/factory/': 'experimental',
