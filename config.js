@@ -15,11 +15,11 @@
 
 var config = {
   // list images on console that match no model
-  listMissingImages: false,
+  listMissingImages: true,
   // see devices.js for different vendor model maps
   vendormodels: vendormodels,
   // set enabled categories of devices (see devices.js)
-  enabled_device_categories: ["recommended"],
+  enabled_device_categories: ["recommended","4_32","8_32","16_32"],
   // community prefix of the firmware images
   community_prefix: 'gluon-',
   // firmware version regex
@@ -30,6 +30,8 @@ var config = {
     'http://beta.ffnef.de/images/experimental/ffnef-multidomain/sysupgrade/': 'experimental',
     'http://beta.ffnef.de/images/beta/ffnef-multidomain/factory/': 'beta',
     'http://beta.ffnef.de/images/beta/ffnef-multidomain/sysupgrade/': 'beta',
+    'http://beta.ffnef.de/images/stable/ffnef-multidomain/factory/': 'stable',
+    'http://beta.ffnef.de/images/stable/ffnef-multidomain/sysupgrade/': 'stable'
   },
   // branch descriptions shown during selection
   branch_descriptions: {
