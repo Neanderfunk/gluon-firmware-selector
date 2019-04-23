@@ -29,6 +29,10 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
 }
 
+div#header >* {
+    display: inline;
+}
+
 #wizard {
   padding-bottom: 4em;
 }
@@ -91,10 +95,10 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.8);
 }
 
-#branchName {
-  text-transform: capitalize;
-  font-weight: bold;
-}
+
+
+
+
 
 #currentVersions {
   float:right;
@@ -110,7 +114,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #dc0067;
 }
 
-.firmwareTableLink {
+
+.firmwareTableLink, .recommendedCheckBox{
+  clear: right;
   float:right;
   color: #337ab7;
   cursor: pointer;
@@ -118,6 +124,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .firmwareTableLink:hover {
   text-decoration: underline;
+}
+
+#wizard #model-pane .recommendedCheckBox > input{
+  width:auto;
+  display: inline;
 }
 
 #wizard .pane-wrapper {
