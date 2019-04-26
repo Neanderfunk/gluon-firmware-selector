@@ -26,12 +26,12 @@ var config = {
   version_regex: '([a-z]+.[0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
   // relative image paths and branch
   directories: {
-    'http://beta.ffnef.de/images/experimental/ffnef-multidomain/factory/': 'experimental',
-    'http://beta.ffnef.de/images/experimental/ffnef-multidomain/sysupgrade/': 'experimental',
-    'http://beta.ffnef.de/images/beta/ffnef-multidomain/factory/': 'beta',
-    'http://beta.ffnef.de/images/beta/ffnef-multidomain/sysupgrade/': 'beta',
-    'http://beta.ffnef.de/images/stable/ffnef-multidomain/factory/': 'stable',
-    'http://beta.ffnef.de/images/stable/ffnef-multidomain/sysupgrade/': 'stable'
+    'http://download.ffnef.de/firmware/broken/ffnef-wlf/factory/': 'experimental',
+    'http://download.ffnef.de/firmware/broken/ffnef-wlf/sysupgrade/': 'experimental',
+    'http://download.ffnef.de/firmware/beta/ffnef-wlf/factory/': 'beta',
+    'http://download.ffnef.de/firmware/beta/ffnef-wlf/sysupgrade/': 'beta',
+    'http://download.ffnef.de/firmware/stable/ffnef-wlf/factory/': 'stable',
+    'http://download.ffnef.de/firmware/stable/ffnef-wlf/sysupgrade/': 'stable'
   },
   // branch descriptions shown during selection
   branch_descriptions: {
