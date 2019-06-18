@@ -1,6 +1,7 @@
 var devices_recommended = {
   "8devices": {
-    "Carambola Board 2": "8devices-carambola2-board"
+    "Carambola Board 2": "8devices-carambola2-board",
+    "Jalapeno Board": "8devices-jalapeno"
   },
 
   "Allnet": {
@@ -72,6 +73,7 @@ var devices_recommended = {
     "EX6100": {"netgear-ex6100v2": "v2"},
     "EX6150": {"netgear-ex6150v2": "v2"},
     "R6120": "netgear-r6120",
+    "R7800": "netgear-nighthawk-x4s-r7800",
     "WNR2200": "netgear-wnr2200",
     "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
     "WNDR3800": "netgear-wndr3800",
@@ -238,6 +240,7 @@ var devices_4_32 = {
     "TL-WR743N/ND": "tp-link-tl-wr743n-nd",
     "TL-WR802N": {"tp-link-tl-wr802n": "v1"},
     "TL-WR810N": {"tp-link-tl-wr810n": "v1"},
+    "TL-WR840N": {"tp-link-tl-wr840n": "v2"},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-nd-v3": "v3",
                      "tp-link-tl-wr841n-nd-v5": "v5",
                      "tp-link-tl-wr841n-nd-v7": "v7",
