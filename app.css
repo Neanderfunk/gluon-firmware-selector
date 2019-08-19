@@ -29,10 +29,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
 }
 
-div#header >* {
-    display: inline;
-}
-
 #wizard {
   padding-bottom: 4em;
 }
@@ -99,6 +95,10 @@ div#header >* {
 
 
 
+#branchName {
+  text-transform: capitalize;
+  font-weight: bold;
+}
 
 #currentVersions {
   float:right;
@@ -114,19 +114,21 @@ div#header >* {
   color: #dc0067;
 }
 
-
-.firmwareTableLink, .recommendedCheckBox{
+.firmwareTableLink, .notRecommendedLink, .InfoLink {
   clear: right;
   float:right;
   color: #337ab7;
   cursor: pointer;
 }
 
-.firmwareTableLink:hover {
   text-decoration: underline;
 }
 
-#wizard #model-pane .recommendedCheckBox > input{
+.notRecommendedLabel {
+  color: #337ab7;
+}
+
+#wizard #model-pane .notRecommendedCheckbox {
   width:auto;
   display: inline;
 }
@@ -191,7 +193,8 @@ div#header >* {
   box-shadow: 0 0 0.5em #005ea0 inset;
 }
 
-#wizard #branch-pane .warning-experimental {
+#wizard #branch-pane .warning-experimental,
+#wizard #model-pane .warning-notrecommended {
   display: none;
   margin: 1em 0;
   padding: 1em;
@@ -199,7 +202,8 @@ div#header >* {
   border: .5em solid #009ee0;
 }
 
-#wizard #branch-pane.show-experimental-warning .warning-experimental {
+#wizard #branch-pane.show-experimental-warning .warning-experimental,
+#wizard #model-pane.show-notrecommended-warning .warning-notrecommended {
   display: block;
 }
 

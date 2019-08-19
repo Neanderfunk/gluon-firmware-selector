@@ -39,6 +39,7 @@ var config = {
     beta: 'Vorabtests neuer Stable-Kandidaten.',
     experimental: 'Ungetestet, automatisch generiert.'
   },
+
   // recommended branch will be marked during selection
   recommended_branch: 'stable',
   // experimental branches (show a warning for these branches)
@@ -47,4 +48,19 @@ var config = {
   preview_pictures: 'pictures/',
   // link to changelog
   changelog: 'CHANGELOG.html'
+
+  // Freifunk im Neanderland 
+  sites: {
+      ffnef-erk: 'Erkrath'
+      ffnef-han: 'Haan',
+      ffnef-hld: 'Hilden',
+      ffnef-hlg: 'Heiligenhaus',
+      ffnef-lgf: 'Langenfeld',
+      ffnef-met: 'Mettmann',
+      ffnef-mon: 'Monheim',
+      ffnef-rat: 'Ratingen',
+      ffnef-vel: 'Velbert',
+      ffnef-wlf: 'Wülfrath',
+      ffnef-lvr: 'Landeschaftsverband Rheinland'   
+  },
 };
