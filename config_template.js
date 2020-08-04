@@ -29,7 +29,7 @@ var config = {
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
   // firmware version regex
-  version_regex: '-([0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
+  version_regex: /-([\d]+\.[\d]+\.[\d]+([+-~][\d]+)?)[.-]/,
   // relative image paths and branch
   directories: {
     // some demo sources
@@ -52,5 +52,16 @@ var config = {
   // path to preview pictures directory
   preview_pictures: 'pictures/',
   // link to changelog
-  changelog: 'CHANGELOG.html'
+  changelog: 'CHANGELOG.html',
+  // links for instructions like flashing of certain devices (optional)
+  // can be set for a whole model or individual revisions
+  // overwrites default values from devices_info in devices.js
+  // devices_info: {
+  //   'AVM': {
+  //     "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io"
+  //   },
+  //   "TP-Link": {
+  //     "TL-WR841N/ND": {"v13": "https://wiki.freifunk.net/TP-Link_WR841ND/Flash-Anleitung_v13"}
+  //   }
+  // }
 };

@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Hier kannst du die Freifunk in Neanderland Firmware herunterladen!"/>
-    <meta name="keywords" content="Freifunk, Neanderfunk, ffnef, gluon, Firmware, Mettmann, Hilden, Wülfrath, Ratingen, Velbert, Haan, Langenfeld, Erkrath, Heiligenhaus"/>
-    <title>Freifunk im Neanderland Firmware</title>
+    <title>Firmware</title>
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
@@ -17,13 +15,27 @@
     <div id="currentVersions">
     </div>
     <div id="wizard">
-      <div id="header"><img src="./router.png" ><h1>Freifunk in Neanderland Firmware</h1></div>
-      <img src="./router.png" >
+      <a href="./index.html"><img src="./router.png" ></a>
       <div class="pane-wrapper">
         <div id="model-pane" class="pane">
           <span class="notRecommendedLink">Veraltete Geräte anzeigen</span>
           <span class="firmwareTableLink">Tabelle anzeigen</span>
           <h1>Schritt 1: Wähle Dein Routermodell</h1>
+          <div class="warning-notrecommended">
+            <p>
+              <b>Vorsicht!</b> Nicht ohne Grund siehst Du in der Voreinstellung
+              nur die von uns empfohlenen Geräte, denn nur mit diesen ist ein reibungsloser
+              Freifunk-Betrieb gewährleistet.
+            </p>
+            <p>
+              Bevor du veraltete Geräte verwendest, solltest du dich selbst über die Konsequenzen
+              und technischen Hintergründe informieren und dich Entscheiden, ob Du wirklich alle
+              Nachteile in Kauf nehmen willst.
+            </p>
+            <div id="notrecommendedinfo"></div>
+            <input type="checkbox" id="notrecommendedselect" class="notRecommendedCheckbox" value="notRecommended" />
+            <label class="notRecommendedLabel" for="notrecommendedselect">Veraltete Geräte trotzdem anzeigen</label>
+          </div>
           <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des
              Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit
              benachbarten Freifunk-Knoten aufzunehmen, ein offenes und ohne
@@ -54,6 +66,14 @@
             Einige Geräte benötigen spezielle Images, welche über den Bootloader
             des Herstellers eingespielt werden.
           </p>
+          <div class="warning-deviceinfo">
+            <b>Vorsicht!</b> Für dieses Gerät gibt es eine extra Anleitung.
+            Dies kann zum Beispiel bedeuten, dass die Installation nicht über die
+            Weboberfläche des Geräts möglich ist. Bitte besuche zuerst die folgende
+            Seite und lies dir alle Informationen gut durch bevor du mit dem
+            Flashen der Firmware beginnst.
+            <div id="deviceinfo"></div>
+          </div>
           <radiogroup id="typeselect" class="radiogroup"></radiogroup>
         </div>
       </div>
@@ -91,19 +111,20 @@
           <tr>
             <th>Hersteller</th>
             <th>Modell</th>
+            <th>Bootloader-Image</th>
             <th>Erstinstallation</th>
             <th>Upgrade</th>
           </tr>
         </thead>
         <tbody id="firmwareTableBody">
           <tr>
-            <td colspan="4">Loading...</td>
+            <td colspan="5">Loading...</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="floatingBottomRight">Diese Webseite ist <a href="https://github.com/freifunk-darmstadt/gluon-firmware-wizard">freie Software</a>! Die Bilder der Router stammen von <a href="https://github.com/Moorviper/Freifunk-Router-Anleitungen">Daniel Krah</a> und <a href="https://github.com/belzebub40k/router-pics">Julian Labus</a > und sind lizenziert unter <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>.</p>
+    <p class="floatingBottomRight">Diese Webseite ist <a href="https://github.com/freifunk-darmstadt/gluon-firmware-wizard">freie Software</a>! Die Bilder der Router stammen von <a href="https://github.com/Moorviper/Freifunk-Router-Anleitungen">Daniel Krah</a>, <a href="https://github.com/belzebub40k/router-pics">Julian Labus</a> und <a href="https://github.com/nalxnet/freifunk-device-images">Jan Alexander</a> und sind lizenziert unter <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>.</p>
 
     <script src="devices.js"></script>
     <script src="config.js"></script>

@@ -49,6 +49,10 @@ var firmwarewizard = function() {
     $(s).style.display = 'none';
   }
 
+  function sortCaseInsensitive(a, b) {
+	return a.localeCompare(b, 'en', {'sensitivity': 'base'});
+  }
+
   // Object.values() replacement
   function ObjectValues(obj) {
     return Object.keys(obj).map(function(key) { return obj[key]; });
@@ -120,7 +124,7 @@ var firmwarewizard = function() {
     return index === self.indexOf(e);
   });
 
-  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar|ubi)/);
+  var reFileExtension = new RegExp(/\.(bin|chk|img\.gz|img|tar|ubi)$/);
   var reRemoveDashes = new RegExp(/-/g);
   var reSearchable = new RegExp('[-/ '+NON_BREAKING_SPACE+']', 'g');
   var reRemoveSpaces = new RegExp(/ /g);
@@ -222,6 +226,8 @@ var firmwarewizard = function() {
     if (config.title !== undefined) {
       document.title = config.title;
     }
+
+    $('#notrecommendedselect').checked = false;
 
     function parseURLasJSON() {
       var search = location.search.substring(1);
@@ -383,7 +389,6 @@ var firmwarewizard = function() {
   }
 
   function findVersion(name) {
-    // version with optional date in it (e.g. 0.8.0~20160502)
     var m = reVersionRegex.exec(name);
     return m ? m[1] : '';
   }
@@ -496,7 +501,7 @@ var firmwarewizard = function() {
     preview = preview.replace('tp-link-tl-wr940n-v3', 'tp-link-tl-wr940n-v2'); // no preview picture for v3 yet
     preview = preview.replace('ubiquiti-unifi-ap', 'ubiquiti-unifi');
     preview = preview.replace('ubiquiti-unifi-lr', 'ubiquiti-unifi');
-    preview = preview.replace('ubiquiti-unifi-pro', 'ubiquiti-unifi');
+    preview = preview.replace('ubiquiti-unifi-pro', 'ubiquiti-unifi-ap-pro');
     preview = preview.replace('x86-virtualbox', 'x86-virtualbox.vdi');
     preview = preview.replace('x86-64-virtualbox', 'x86-virtualbox.vdi');
     preview = preview.replace('x86-vmware', 'x86-vmware.vmdk');
@@ -506,6 +511,7 @@ var firmwarewizard = function() {
     preview = preview.replace('x86-kvm', 'x86-kvm.img');
     preview = preview.replace('x86-generic.img.vdi', 'x86-virtualbox.vdi');
     preview = preview.replace('x86-generic.img.vmdk', 'x86-vmware.vmdk');
+    preview = preview.replace('x86-legacy', 'x86-legacy.img');
 
     // collect branch versions
     app.currentVersions[branch] = version;
@@ -747,6 +753,31 @@ var firmwarewizard = function() {
     }
   }
 
+  function hasVendorDevicesForEnabledDeviceCategories(vendor) {
+    if (images[vendor]) {
+      for (let [key, value] of Object.entries(images[vendor])) {
+        if (enabled_device_categories.includes(value[0].category)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function getVendors() {
+    var vendorlist = [];
+    for (var device_category_idx in enabled_device_categories) {
+      var device_category = enabled_device_categories[device_category_idx];
+      var category_vendors = Object.keys(config.vendormodels[device_category]);
+      category_vendors.forEach(function (val, idx) {
+        if (!vendorlist.includes(val) && hasVendorDevicesForEnabledDeviceCategories(val)) {
+          vendorlist.push(val);
+        }
+      });
+    }
+    return vendorlist;
+  }
+
   // update all elements of the page according to the wizard object.
   function updateHTML(wizard) {
     // parse searchstring to retrieve current vendor and model
@@ -769,7 +800,7 @@ var firmwarewizard = function() {
         createOption('', '-- Bitte Hersteller wählen --')
       );
 
-      var vendors = Object.keys(images).sort();
+      var vendors = getVendors().sort(sortCaseInsensitive);
       for (var i in vendors) {
         select.appendChild(
           createOption(atomic(vendors[i]), vendors[i], atomic(currentVendor))
@@ -795,7 +826,7 @@ var firmwarewizard = function() {
       }
 
       var prefix = atomic(currentVendor) + ' ';
-      var models = Object.keys(images[currentVendor]).sort();
+      var models = Object.keys(images[currentVendor]).sort(sortCaseInsensitive);
       for (var i in models) {
         select.appendChild(createOption(
           prefix + atomic(models[i]),
@@ -845,6 +876,52 @@ var firmwarewizard = function() {
       function imageTypeChangedEventHandler(e) {
         setSearchQuery(e.target.getAttribute('data-query'));
         scrollDown();
+      }
+
+      // find device info link
+      function findDeviceInfo(vendor, model, revision, links) {
+        if (links[vendor] !== undefined && links[vendor][model] !== undefined) {
+          revisions = links[vendor][model];
+        } else {
+          return '';
+        }
+
+        if (typeof revisions == 'object' && revisions[revision] !== undefined) {
+          return revisions[revision];
+        } else if (typeof revisions == 'string') {
+          return revisions;
+        } else {
+          return '';
+        }
+      }
+
+      var url = '';
+      var custom_url = '';
+      var deviceinfo = $('#deviceinfo');
+      deviceinfo.innerHTML = '';
+
+      url = findDeviceInfo(currentVendor, currentModel, currentRevision, devices_info);
+
+      if ("devices_info" in config){
+        custom_url = findDeviceInfo(currentVendor, currentModel, currentRevision, config.devices_info);
+      }
+
+      if (custom_url !== '') {
+        url = custom_url;
+      }
+
+      if (url !== '') {
+        setClass($('#type-pane'), 'show-deviceinfo-warning', true);
+
+        var a = document.createElement('a');
+        a.href = url;
+        a.className = 'btn';
+        a.target = '_blank';
+        a.innerText = 'Anleitung';
+
+        deviceinfo.appendChild(a);
+      } else {
+        setClass($('#type-pane'), 'show-deviceinfo-warning', false);
       }
 
       var typeselect = $('#typeselect');
@@ -1009,6 +1086,9 @@ var firmwarewizard = function() {
     $('#firmwareTableBody').innerHTML = '';
 
     var initializeRevHTML = function(rev) {
+      if (bootloaderRevBranchDict[rev.branch] === undefined) {
+        bootloaderRevBranchDict[rev.branch] = document.createElement('span');
+      }
       if (upgradeRevBranchDict[rev.branch] === undefined) {
         upgradeRevBranchDict[rev.branch] = document.createElement('span');
       }
@@ -1036,6 +1116,11 @@ var firmwarewizard = function() {
         factoryRevBranchDict[rev.branch].appendChild(a);
         factoryRevBranchDict[rev.branch].appendChild(textNodeEnd);
         show = true;
+      } else if (rev.type == 'bootloader') {
+        bootloaderRevBranchDict[rev.branch].appendChild(textNodeStart);
+        bootloaderRevBranchDict[rev.branch].appendChild(a);
+        bootloaderRevBranchDict[rev.branch].appendChild(textNodeEnd);
+        show = true;
       }
     };
 
@@ -1057,15 +1142,16 @@ var firmwarewizard = function() {
       return td;
     }
 
-    var vendors = Object.keys(images).sort();
+    var vendors = Object.keys(images).sort(sortCaseInsensitive);
     for (var v in vendors) {
       var vendor = vendors[v];
-      var models = Object.keys(images[vendor]).sort();
+      var models = Object.keys(images[vendor]).sort(sortCaseInsensitive);
       for (var m in models) {
         var model = models[m];
         var revisions = sortByRevision(images[vendor][model]);
         var upgradeRevBranchDict = {};
         var factoryRevBranchDict = {};
+        var bootloaderRevBranchDict = {};
         var show = false;
 
         revisions.forEach(initializeRevHTML);
@@ -1085,6 +1171,7 @@ var firmwarewizard = function() {
         tdModel.innerText = model;
         tr.appendChild(tdModel);
 
+        tr.appendChild(createRevTd(bootloaderRevBranchDict));
         tr.appendChild(createRevTd(factoryRevBranchDict));
         tr.appendChild(createRevTd(upgradeRevBranchDict));
 
@@ -1098,6 +1185,9 @@ var firmwarewizard = function() {
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         callback(xmlhttp.responseText, url);
+      } else if (xmlhttp.readyState == 4) {
+        console.log("Could not load " + url);
+        callback(null, url);
       }
     };
     xmlhttp.open('GET', url, true);
@@ -1129,8 +1219,8 @@ var firmwarewizard = function() {
       } while (hrefMatch);
 
       // check if we loaded all directories
-      sitesLoadedSuccessfully++;
-      if (sitesLoadedSuccessfully == Object.keys(config.directories).length) {
+      directoryLoadCount++;
+      if (directoryLoadCount == Object.keys(config.directories).length) {
         callback();
       }
     };
@@ -1154,7 +1244,7 @@ var firmwarewizard = function() {
     // - the end of the expression (if the file extension is part of the regex)
     var reMatch = new RegExp('('+matchString+')([.-]|$)');
 
-    var sitesLoadedSuccessfully = 0;
+    var directoryLoadCount = 0;
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
       loadSite(indexPath, parseSite);
