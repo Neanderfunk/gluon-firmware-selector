@@ -442,3 +442,4 @@ var devices_info = {
     }
   }
 }
+

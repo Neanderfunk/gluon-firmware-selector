@@ -19,47 +19,48 @@ var config = {
   // see devices.js for different vendor model maps
   vendormodels: vendormodels,
   // set enabled categories of devices (see devices.js)
-//  enabled_device_categories: ["recommended"],
+  enabled_device_categories: ["recommended"],
   // community prefix of the firmware images
-  community_prefix: 'gluon-ffnef-',
+  community_prefix: 'gluon-nef-',
   // firmware version regex
-  version_regex: '([a-z]+.[0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)-',
-  // relative image paths and branch
+ //  version_regex: '([a-z]+.[0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)-',
+  version_regex: '(([0-9][0-9](?:\_)[a-z]+)(?:\-)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9](?:\sta\-))',
+// relative image paths and branch
   directories: {
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-erk/sysupgrade/': 'Erkrath',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-erk/factory/': 'Erkrath',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-han/sysupgrade/': 'Haan',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-han/factory/': 'Haan',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-hlg/sysupgrade/': 'Heiligenhaus',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-hlg/factory/': 'Heiligenhaus',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-hld/sysupgrade/': 'Hilden',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-hld/factory/': 'Hilden',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-met/sysupgrade/': 'Mettmann',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-met/factory/': 'Mettmann',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-mon/sysupgrade/': 'Monheim',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-mon/factory/': 'Monheim',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-lgf/sysupgrade/': 'Langenfeld',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-lgf/factory/': 'Langenfeld',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-lvr/sysupgrade/': 'LVR',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-lvr/factory/': 'LVR',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-vel/sysupgrade/': 'Velbert',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-vel/factory/': 'Velbert',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-rat/sysupgrade/': 'Ratingen',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-rat/factory/': 'Ratingen',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-wlf/sysupgrade/': 'Wülfrath',
-    'http://gluon-selector.ffnef.de/images/stable/ffnef-wlf/factory/': 'Wülfrath'
- },
+    	'./images/stable/02_met/sysupgrade/': 'Mettmann',
+    	'./images/stable/02_met/factory/': 'Mettmann',
+    	'./images/stable/10_wlf/sysupgrade/': 'Wülfrath',
+   	'./images/stable/10_wlf/factory/': 'Wülfrath',
+	'./images/stable/01_vel/sysupgrade/': 'Velbert',
+	'./images/stable/01_vel/factory/': 'Velbert',
+	'./images/stable/04_hld/sysupgrade/': 'Hilden',
+	'./images/stable/04_hld/factory/': 'Hilden',
+	'./images/stable/07_erk/sysupgrade/': 'Erkrath',
+	'./images/stable/07_erk/factory/': 'Erkrath',
+	'./images/stable/06_han/sysupgrade/': 'Haan',
+	'./images/stable/06_han/factory/': 'Haan',
+	'./images/stable/03_rat/sysupgrade/': 'Ratingen',
+	'./images/stable/03_rat/factory/': 'Ratingen',
+	'./images/stable/08_hlg/sysupgrade/': 'Heiligenhaus',
+	'./images/stable/08_hlg/factory/': 'Heiligenhaus',
+	'./images/stable/05_mon/sysupgrade/': 'Monheim',
+	'./images/stable/05_mon/factory/': 'Monheim',
+	'./images/stable/09_lgf/sysupgrade/': 'Langenfeld',
+	'./images/stable/09_lgf/factory/': 'Langenfeld',
+	'./images/stable/11_lvr/sysupgrade/': 'LVR',
+	'./images/stable/11_lvr/factory/': 'LVR',   
+},
   // branch descriptions shown during selection
   branch_descriptions: {
   //  Mettmann: 'Gut getestet, zuverlässig und stabil.'
-//    beta: 'Vorabtests neuer Stable-Kandidaten.',
+//    routersoftware: 'Vorabtests neuer Stable-Kandidaten.',
   //  experimental: 'Ungetestet, automatisch generiert.'
   },
   // recommended branch will be marked during selection
   recommended_branch: 'stable',
   // experimental branches (show a warning for these branches)
   experimental_branches: ['experimental'],
-  // path to preview pictures directory
+ /// path to preview pictures directory
   preview_pictures: 'pictures/',
   // link to changelog
   changelog: 'CHANGELOG.html'
